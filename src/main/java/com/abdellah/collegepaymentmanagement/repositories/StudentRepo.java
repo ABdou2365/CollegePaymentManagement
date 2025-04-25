@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StudentRepo extends JpaRepository<Student, String> {
     
-    List<Student> findByCode(String code);
+    Student findByCode(String code);
     List<Student> findByProgramId(String programId);
     
 }
