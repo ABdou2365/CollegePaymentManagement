@@ -6,6 +6,7 @@ import com.abdellah.collegepaymentmanagement.entities.PaymentType;
 import com.abdellah.collegepaymentmanagement.entities.Student;
 import com.abdellah.collegepaymentmanagement.repositories.PaymentRepo;
 import com.abdellah.collegepaymentmanagement.repositories.StudentRepo;
+import com.abdellah.collegepaymentmanagement.services.PaymentService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,81 +23,58 @@ import java.util.UUID;
 @RestController
 public class PaymentRestController {
 
-    private final PaymentRepo paymentRepo;
+    private final PaymentService paymentService;
 
-    private final StudentRepo studentRepo;
-
-    public PaymentRestController(PaymentRepo paymentRepo, StudentRepo studentRepo) {
-        this.paymentRepo = paymentRepo;
-        this.studentRepo = studentRepo;
+    public PaymentRestController(PaymentService paymentService) {
+        this.paymentService = paymentService;
     }
 
     @GetMapping("/payments")
     public List<Payment> getAllPayments() {
-        return paymentRepo.findAll();
+        return paymentService.getAllPayments();
     }
 
     @GetMapping("/payment/{id}")
     public Payment getPaymentById(@PathVariable Long id) {
-        return paymentRepo.findById(id).orElse(null);
+        return paymentService.getPaymentById(id);
     }
 
     @PutMapping("payment/{id}")
     public Payment changePaymentStatus(@PathVariable Long id, PaymentStatus status) {
-        Payment payment = paymentRepo.findById(id).get();
-        payment.setPaymentStatus(status);
-        return paymentRepo.save(payment);
+        return paymentService.changePaymentStatus(id, status);
     }
 
     @PostMapping(path = "payment",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Payment createPayment(@RequestParam MultipartFile file, LocalDate date,double amount,PaymentType paymentType,PaymentStatus status,
                                  String code) throws IOException {
-        Path folderPath = Paths.get(System.getProperty("user.home"),"collegePayment-management","src","main","resources","payments");
-        if (!Files.exists(folderPath)) {
-            Files.createDirectories(folderPath);
-        }
-        String fileName = UUID.randomUUID().toString()+".pdf";
-        Path filePath = Paths.get(System.getProperty("user.home"),
-                "collegePayment-management","src","main","resources","payments",fileName);
-        Files.copy(file.getInputStream(), filePath);
-        Student student = studentRepo.findByCode(code);
-        Payment payment = Payment.builder()
-                .file(filePath.toUri().toString())
-                .date(date)
-                .amount(amount)
-                .paymentType(paymentType)
-                .paymentStatus(status)
-                .student(student)
-                .build();
-        return paymentRepo.save(payment);
+        return paymentService.createPayment(file, date, amount, paymentType, status, code);
     }
 
     @GetMapping(path = "paymentFile/{id}",produces = MediaType.APPLICATION_PDF_VALUE)
     public byte[] viewPaymentFileById(@PathVariable  Long id) throws IOException {
-        Payment payment = paymentRepo.findById(id).get();
-        return Files.readAllBytes(Path.of(URI.create(payment.getFile())));
+        return paymentService.viewPaymentFileById(id);
     }
 
 
 
     @GetMapping("/students/{code}/payments")
     public List<Payment> getPaymentsByStudent(@PathVariable String code) {
-        return paymentRepo.findByStudent_Code(code);
+        return paymentService.getPaymentsByStudent(code);
     }
 
     @GetMapping("/paymentsByStatus")
     public List<Payment> getPaymentsByStatus (@RequestParam PaymentStatus status) {
-        return paymentRepo.findByPaymentStatus(status);
+        return paymentService.getPaymentsByStatus(status);
     }
 
     @GetMapping("/paymentsByType")
-    public List<Payment> getPaymentsByStatus (@RequestParam PaymentType type) {
-        return paymentRepo.findByPaymentType(type);
+    public List<Payment> getPaymentsByType (@RequestParam PaymentType type) {
+        return paymentService.getPaymentsByType(type);
     }
 
     @GetMapping("/students")
     public List<Student> getAllStudents() {
-        return studentRepo.findAll();
+        return paymentService.getAllStudents();
     }
 
 //    @GetMapping("/students/{id}")
@@ -106,11 +84,11 @@ public class PaymentRestController {
 
     @GetMapping("/students/{code}")
     public Student getStudentByCode(@PathVariable String code) {
-        return studentRepo.findByCode(code);
+        return paymentService.getStudentByCode(code);
     }
 
     @GetMapping("/studentsByProgramId")
     public List<Student> getStudentsByProgramId(String programId) {
-        return studentRepo.findByProgramId(programId);
+        return paymentService.getStudentsByProgramId(programId);
     }
 }
