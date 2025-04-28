@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+  <mat-icon>
+    menu
+  </mat-icon>
+  <span style="flex: auto"></span>
+  <button mat-button>
+    Home
+  </button>
+  <button mat-button>
+    Profile
+  </button>
+  <button mat-button [matMenuTriggerFor]="imports">
+    <mat-icon iconPositionEnd>
+      keyboard_arrow_down
+    </mat-icon>
+    Import
+  </button>
+  <mat-menu #imports>
+    <button mat-menu-item>
+      Load Students</button>
+    <button mat-menu-item>Load Payments</button>
+  </mat-menu>
+  <button mat-raised-button color="accent">
+    Logout
+  </button>
+</mat-toolbar>
+<mat-drawer-container>
+  <mat-drawer opened="true" mode="side" position="start">
+    <mat-list>
+      <mat-list-item>
+        <button mat-button>
+          <mat-icon>dashboard</mat-icon>
+          Dashboard
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button>
+          <mat-icon>dashboard</mat-icon>
+          Payments
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button>
+          <mat-icon>dashboard</mat-icon>
+          Students
+        </button>
+      </mat-list-item>
+    </mat-list>
+
+  </mat-drawer>
+  <mat-drawer-content>
+    <div style="min-height: 600px">
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
