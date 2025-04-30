@@ -14,7 +14,7 @@ const routes: Routes = [
   {path : 'dashboard',component: DashboardComponent},
   {path : 'load-payments',component: LoadPaymentsComponent},
   {path : 'load-Students',component: LoadStudentsComponent},
-  {path : 'login',component: LoginComponent},
+  {path : '',component: LoginComponent},
   {path : 'payments',component: PaymentsComponent},
   {path : 'students',component: StudentsComponent},
   {path : 'profile',component: ProfileComponent}

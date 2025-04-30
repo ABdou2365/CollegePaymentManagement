@@ -26,6 +26,8 @@ import { MatListModule } from '@angular/material/list';
 // Router
 import { RouterModule } from '@angular/router';
 import {MatCard, MatCardModule} from "@angular/material/card";
+import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
+import {MatInput, MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import {MatCard, MatCardModule} from "@angular/material/card";
     MatSidenavModule,
     MatListModule,
     RouterModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     provideAnimationsAsync()
