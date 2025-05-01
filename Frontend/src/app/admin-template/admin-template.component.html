@@ -5,10 +5,10 @@
     </mat-icon>
   </button>
   <span style="flex: auto"></span>
-  <button mat-button routerLink="home">
+  <button mat-button routerLink="/admin/home">
     Home
   </button>
-  <button mat-button routerLink="profile">
+  <button mat-button routerLink="/admin/profile">
     Profile
   </button>
   <button mat-button [matMenuTriggerFor]="imports">
@@ -18,13 +18,16 @@
     Import
   </button>
   <mat-menu #imports>
-    <button mat-menu-item routerLink="load-Students">
+    <button mat-menu-item routerLink="/admin/load-Students">
       Load Students</button>
-    <button mat-menu-item routerLink="load-payments">
+    <button mat-menu-item routerLink="/admin/load-payments">
       Load Payments
     </button>
   </mat-menu>
-  <button mat-raised-button color="accent" routerLink="login">
+  <button mat-button *ngIf="authService.isAuthenticated">
+    {{authService.username}}
+  </button>
+  <button mat-raised-button color="accent" (click)="logout()">
     Logout
   </button>
 </mat-toolbar>
@@ -32,19 +35,19 @@
   <mat-drawer opened="true" mode="side" position="start" #drawer>
     <mat-list>
       <mat-list-item>
-        <button mat-button routerLink="dashboard">
+        <button mat-button routerLink="/admin/dashboard">
           <mat-icon>dashboard</mat-icon>
           Dashboard
         </button>
       </mat-list-item>
       <mat-list-item>
-        <button mat-button routerLink="payments">
+        <button mat-button routerLink="/admin/payments">
           <mat-icon>payments</mat-icon>
           Payments
         </button>
       </mat-list-item>
       <mat-list-item>
-        <button mat-button routerLink="students">
+        <button mat-button routerLink="/admin/students">
           <mat-icon>school</mat-icon>
           Students
         </button>

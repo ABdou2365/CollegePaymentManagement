@@ -1,21 +1,30 @@
 <div class="container">
-  <mat-card class="example-card" appearance="outlined">
+
+<!--  [formGroup]="loginForm => BINDING THE FORM WITH THE LOGINFORM VARIABLE ON THE TS FILE-->
+<!--  [formGroup]="myForm" → Links the form in HTML to the FormGroup in TypeScript.-->
+  <mat-card class="example-card" appearance="outlined" [formGroup]="loginForm">
     <mat-card-header>
       <mat-card-title>Authentification</mat-card-title>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
+
+<!--      DISPLAYING FORM INPUT VALUE-->
+<!--      {{ loginForm.getRawValue()  | json }}-->
+
+<!--      formControlName="username" → Binds this input to the name control in myForm.-->
+
       <mat-form-field>
-        <mat-label>Username</mat-label>
-        <input matInput>
+        <mat-label>Username ou Email</mat-label>
+        <input matInput formControlName="username">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Password</mat-label>
-        <input matInput type="password">
+        <input matInput type="password" formControlName="password">
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions align="end">
-      <button mat-raised-button color="primary">
+      <button mat-raised-button color="primary" (click)="login()">
         Login
       </button>
     </mat-card-actions>
