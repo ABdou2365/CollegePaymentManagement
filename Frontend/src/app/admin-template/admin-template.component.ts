@@ -10,16 +10,13 @@ import {AuthService} from "../sevices/auth.service";
 export class AdminTemplateComponent{
 
 
-  constructor(private router:Router, protected authService: AuthService) {
+  constructor( protected authService: AuthService,private router:Router) {
   }
 
 
 
   logout(){
-    this.authService.roles = [];
-    this.authService.isAuthenticated = false;
-    this.authService.username=undefined;
-    this.router.navigateByUrl("/")
+    this.authService.logout()
   }
 
 }
