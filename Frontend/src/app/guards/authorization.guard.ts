@@ -16,6 +16,8 @@ export class authorizationGuard{
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
+    // here we're taking the roles of the user and the role indicated on the route and check of the user have the role
+    // needed to access to the route
     let dataRoles = route.data['roles']
     let serviceRoles = this.authService.roles
     if (serviceRoles.includes(dataRoles)){

@@ -31,6 +31,10 @@ import {MatInput, MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {authGuard} from "./guards/auth.guard";
 import {authorizationGuard} from "./guards/authorization.guard";
+import {MatTable, MatTableModule} from "@angular/material/table";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
+import {MatSort, MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -58,7 +62,11 @@ import {authorizationGuard} from "./guards/authorization.guard";
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    HttpClientModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     provideAnimationsAsync(),
