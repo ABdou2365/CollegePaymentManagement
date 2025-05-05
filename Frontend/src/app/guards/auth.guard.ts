@@ -6,7 +6,7 @@ import {
   MaybeAsync, Router,
   RouterStateSnapshot
 } from '@angular/router';
-import {AuthService} from "../sevices/auth.service";
+import {AuthService} from "../services/auth.service";
 import {Injectable} from "@angular/core";
 
 @Injectable()
