@@ -11,6 +11,7 @@ import {ProfileComponent} from "./profile/profile.component";
 import {AdminTemplateComponent} from "./admin-template/admin-template.component";
 import {authGuard} from "./guards/auth.guard";
 import {authorizationGuard} from "./guards/authorization.guard";
+import {StudentDetailsComponent} from "./student-details/student-details.component";
 
 const routes: Routes = [
 
@@ -22,6 +23,7 @@ const routes: Routes = [
       {path : 'profile',component: ProfileComponent},
       {path : 'home',component: HomeComponent},
       {path : 'dashboard',component: DashboardComponent},
+      {path: 'student-details/:code', component: StudentDetailsComponent},
       {path : 'load-payments',component: LoadPaymentsComponent,
         canActivate : [authorizationGuard], data : {roles : ['ADMIN']}},
       {path : 'load-Students',component: LoadStudentsComponent,
