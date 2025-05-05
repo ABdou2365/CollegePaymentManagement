@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {PaymentsService} from "../services/payments.service";
+import {Payment} from "../model/student.model";
 
 @Component({
   selector: 'app-payments',
@@ -12,8 +12,8 @@ import {PaymentsService} from "../services/payments.service";
 })
 export class PaymentsComponent implements OnInit{
 
-  public payments:any;
-  public dataSource:any;
+  public payments!:Array<Payment>;
+  public dataSource!:MatTableDataSource<Payment, MatPaginator>;
   public displayedColumns:String[] = ['id','date','amount','paymentType','paymentStatus','firstName']
 
 
