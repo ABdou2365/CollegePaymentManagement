@@ -41,6 +41,7 @@ export class StudentsComponent implements OnInit{
         console.log(err)
       }
     })
+    
   }
 
   consultPaymentsByStudent(code:string) {

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {PaymentsService} from "../services/payments.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Payment} from "../model/student.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
@@ -16,11 +16,11 @@ export class StudentDetailsComponent implements OnInit{
 
   payments!:Array<Payment>;
   dataSource!:MatTableDataSource<Payment, MatPaginator>;
-  displayedColumns:String[] = ['id','date','amount','paymentType','paymentStatus','firstName']
+  displayedColumns:String[] = ['id','date','amount','paymentType','paymentStatus','firstName','PreviewFile']
   code!:any;
 
 
-  constructor(private paymentService: PaymentsService,private activatedRouter:ActivatedRoute) {
+  constructor(private paymentService: PaymentsService,private activatedRouter:ActivatedRoute, private router:Router) {
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -36,11 +36,18 @@ export class StudentDetailsComponent implements OnInit{
               this.dataSource = new MatTableDataSource(this.payments);
               this.dataSource.sort = this.sort;
               this.dataSource.paginator = this.paginator;
-          },
+              },
           error: err => {
             console.log(err)
           }
         })
     }
 
+  DisplayAddNewComponent() {
+    this.router.navigateByUrl(`admin/add-new-payment/${this.code}`)
+  }
+
+  ConsultPdf(id:string) {
+      this.router.navigateByUrl(`admin/payment-details/${id}`)
+  }
 }

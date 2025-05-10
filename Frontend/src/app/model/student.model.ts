@@ -1,3 +1,5 @@
+
+
 export interface Student{
   id:string,
   firstName:string,
@@ -9,7 +11,7 @@ export interface Student{
 }
 
 export interface Payment{
-  id:string,
+  id:number,
   date:string,
   amount:number,
   paymentType:string,

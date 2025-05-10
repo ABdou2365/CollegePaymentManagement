@@ -36,6 +36,14 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatSort, MatSortModule} from "@angular/material/sort";
 import { StudentDetailsComponent } from './student-details/student-details.component';
+import { AddNewComponentComponent } from './add-new-component/add-new-component.component';
+import {MatDatepicker, MatDatepickerModule, MatDatepickerToggle} from "@angular/material/datepicker";
+import {MatOption, MatSelect, MatSelectModule} from "@angular/material/select";
+import {MatOptionModule, provideNativeDateAdapter} from "@angular/material/core";
+import {MatProgressSpinner, MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { PaymentDetailsComponent } from './payment-details/payment-details.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 @NgModule({
   declarations: [
@@ -49,31 +57,39 @@ import { StudentDetailsComponent } from './student-details/student-details.compo
     StudentsComponent,
     PaymentsComponent,
     DashboardComponent,
-    StudentDetailsComponent
+    StudentDetailsComponent,
+    AddNewComponentComponent,
+    PaymentDetailsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatSidenavModule,
-    MatListModule,
-    RouterModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    HttpClientModule,
-    MatPaginatorModule,
-    MatSortModule
-  ],
+    imports: [
+      PdfViewerModule,
+        BrowserModule,
+        AppRoutingModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        MatSidenavModule,
+        MatListModule,
+        RouterModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        HttpClientModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatProgressSpinnerModule
+    ],
   providers: [
     provideAnimationsAsync(),
     authGuard,
-    authorizationGuard
+    authorizationGuard,
+    provideNativeDateAdapter()
   ],
   bootstrap: [AppComponent]
 })

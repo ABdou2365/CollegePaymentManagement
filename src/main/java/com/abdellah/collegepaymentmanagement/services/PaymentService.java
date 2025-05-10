@@ -1,6 +1,7 @@
 package com.abdellah.collegepaymentmanagement.services;
 
 
+import com.abdellah.collegepaymentmanagement.dtos.NewPaymentDTO;
 import com.abdellah.collegepaymentmanagement.entities.Payment;
 import com.abdellah.collegepaymentmanagement.entities.PaymentStatus;
 import com.abdellah.collegepaymentmanagement.entities.PaymentType;
@@ -48,8 +49,7 @@ public class PaymentService {
         return paymentRepo.save(payment);
     }
 
-    public Payment createPayment(@RequestParam MultipartFile file, LocalDate date, double amount, PaymentType paymentType, PaymentStatus status,
-                                 String code) throws IOException {
+    public Payment createPayment(@RequestParam MultipartFile file, NewPaymentDTO newPaymentDTO) throws IOException {
         Path folderPath = Paths.get(System.getProperty("user.home"),"collegePayment-management","src","main","resources","payments");
         if (!Files.exists(folderPath)) {
             Files.createDirectories(folderPath);
@@ -58,13 +58,13 @@ public class PaymentService {
         Path filePath = Paths.get(System.getProperty("user.home"),
                 "collegePayment-management","src","main","resources","payments",fileName);
         Files.copy(file.getInputStream(), filePath);
-        Student student = studentRepo.findByCode(code);
+        Student student = studentRepo.findByCode(newPaymentDTO.code());
         Payment payment = Payment.builder()
                 .file(filePath.toUri().toString())
-                .date(date)
-                .amount(amount)
-                .paymentType(paymentType)
-                .paymentStatus(status)
+                .date(newPaymentDTO.date())
+                .amount(newPaymentDTO.amount())
+                .paymentType(newPaymentDTO.paymentType())
+                .paymentStatus(PaymentStatus.CREATED)
                 .student(student)
                 .build();
         return paymentRepo.save(payment);

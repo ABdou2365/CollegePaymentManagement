@@ -1,24 +1,17 @@
 package com.abdellah.collegepaymentmanagement.web;
 
+import com.abdellah.collegepaymentmanagement.dtos.NewPaymentDTO;
 import com.abdellah.collegepaymentmanagement.entities.Payment;
 import com.abdellah.collegepaymentmanagement.entities.PaymentStatus;
 import com.abdellah.collegepaymentmanagement.entities.PaymentType;
 import com.abdellah.collegepaymentmanagement.entities.Student;
-import com.abdellah.collegepaymentmanagement.repositories.PaymentRepo;
-import com.abdellah.collegepaymentmanagement.repositories.StudentRepo;
 import com.abdellah.collegepaymentmanagement.services.PaymentService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
@@ -46,9 +39,8 @@ public class PaymentRestController {
     }
 
     @PostMapping(path = "payment",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Payment createPayment(@RequestParam MultipartFile file, LocalDate date,double amount,PaymentType paymentType,PaymentStatus status,
-                                 String code) throws IOException {
-        return paymentService.createPayment(file, date, amount, paymentType, status, code);
+    public Payment createPayment(@RequestParam("file") MultipartFile file, NewPaymentDTO newPaymentDTO) throws IOException {
+        return paymentService.createPayment(file, newPaymentDTO);
     }
 
     @GetMapping(path = "paymentFile/{id}",produces = MediaType.APPLICATION_PDF_VALUE)

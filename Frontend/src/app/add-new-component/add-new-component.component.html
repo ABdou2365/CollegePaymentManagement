@@ -1,0 +1,53 @@
+
+  <mat-card [formGroup]="form">
+    <mat-card-header>
+      <h1>Ajouter un nouveau payment</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="example-form">
+        <mat-form-field>
+          <mat-label>Choose payment date</mat-label>
+          <input formControlName="date" matInput [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Amount</mat-label>
+          <input formControlName="amount" matInput placeholder="Type the amount">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Student Code</mat-label>
+          <input formControlName="code" matInput readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Select Payment Status</mat-label>
+          <mat-select formControlName="paymentsType">
+            @for (t of paymentsTypes; track t) {
+              <mat-option [value]="PaymentType[t]">{{PaymentType[t]}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>File</mat-label>
+          <button type="button" mat-icon-button (click)="f_input.click()">
+            <mat-icon> attach_file</mat-icon>
+          </button>
+          <input matInput readonly formControlName="fileName">
+          <input type="file" hidden #f_input (change)="selectFile($event)"  accept="application/pdf">
+        </mat-form-field>
+        @if (isSpinning){
+          <mat-spinner></mat-spinner>
+        }
+
+      </form>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="savePayment()" mat-raised-button color="primary">Save Payment</button>
+    </mat-card-actions>
+  </mat-card>
