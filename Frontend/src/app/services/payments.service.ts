@@ -13,23 +13,23 @@ export class PaymentsService {
 
   loadPayments() : Observable<Array<Payment>>{
     // On a mentioné ici le type est un array de Payment bcs( Type 'Observable<Object>' is not assignable to type 'Observable<Payment[]>'.
-    return this.http.get<Array<Payment>>(`${environment.backendHost}/payments`);
+    return this.http.get<Array<Payment>>(`${environment.backendHost}/api/payments`);
   }
 
   loadStudents() {
-    return this.http.get<Array<Student>>(`${environment.backendHost}/students`)
+    return this.http.get<Array<Student>>(`${environment.backendHost}/api/students`)
   }
 
   loadPaymentsByCode(code:string) : Observable<Array<Payment>>{
-    return this.http.get<Array<Payment>>(`${environment.backendHost}/students/${code}/payments`)
+    return this.http.get<Array<Payment>>(`${environment.backendHost}/api/students/${code}/payments`)
   }
 
   savePayment(fromData:any):Observable<Payment>{
-    return this.http.post<Payment>(`${environment.backendHost}/payment`,fromData)
+    return this.http.post<Payment>(`${environment.backendHost}/api/payment`,fromData)
   }
 
   // ON A AJOUTÉ LE RESPONSE TYPE, POUR INDIQUER A ANGULAR QUE LE RETOUR EST DE TYPE  PDF
   consultPayment(id:number) {
-    return this.http.get(`${environment.backendHost}/paymentFile/${id}`,{responseType:"blob"})
+    return this.http.get(`${environment.backendHost}/api/paymentFile/${id}`,{responseType:"blob"})
   }
 }

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
+@RequestMapping("api")
 public class PaymentRestController {
 
     private final PaymentService paymentService;
@@ -47,7 +47,6 @@ public class PaymentRestController {
     public byte[] viewPaymentFileById(@PathVariable  Long id) throws IOException {
         return paymentService.viewPaymentFileById(id);
     }
-
 
 
     @GetMapping("/students/{code}/payments")
