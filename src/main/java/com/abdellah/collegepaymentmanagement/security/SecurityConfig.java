@@ -2,6 +2,7 @@ package com.abdellah.collegepaymentmanagement.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -20,8 +21,10 @@ public class SecurityConfig{
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // To notify the security that we will use a customizer configuration (Loot at the line 39)
+        http.cors(Customizer.withDefaults());
         http.csrf(AbstractHttpConfigurer::disable);
-        // Spring bu default denie the frames ana here we need to
+        // Spring by default denied the frames ana here we need to
         // disable the framer to get access to all the frames on the H2-console
         http.headers(h->h.frameOptions(fo->fo.disable()));
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -32,7 +35,7 @@ public class SecurityConfig{
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("*"));
